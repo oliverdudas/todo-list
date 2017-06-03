@@ -14,7 +14,7 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
                          HttpServletResponse response,
                          AuthenticationException authException) throws IOException {
         // This is invoked when user tries to access a secured REST resource without supplying any credentials
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage() != null ? authException.getMessage() : "Unauthorized");
 //        response.sendRedirect("/");
     }
 

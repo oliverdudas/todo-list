@@ -11,7 +11,7 @@ export class AuthService {
   }
 
   login(username: string, password: string): Observable<boolean> {
-    return this.http.post('http://localhost:8080/user/login', JSON.stringify({username: username, password: password}))
+    return this.http.post('http://localhost:8080/user/login', JSON.stringify({username: username, password: password}), {headers: this.headers})
       .map((response: Response) => {
         // login successful if there's a jwt token in the response
         let token = response.headers && response.headers.get('authorization');
@@ -28,7 +28,7 @@ export class AuthService {
           // return false to indicate failed login
           return false;
         }
-      }).catch((error:any) => Observable.throw(error.json().error + '\n' + error.json().message || 'Server error'));
+      }).catch((error:any) => Observable.throw(error.json().message || 'Server error'));
   }
 
   getToken(): String {

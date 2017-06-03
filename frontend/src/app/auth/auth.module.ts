@@ -6,13 +6,14 @@ import {FormsModule} from "@angular/forms";
 import {AuthComponent} from "./auth.component";
 
 import {TabViewModule} from "primeng/components/tabview/tabview";
-import {ButtonModule} from "primeng/components/button/button";
+import {InputTextModule, ButtonModule} from "primeng/primeng";
 
 import {GrowlModule} from "primeng/components/growl/growl";
 import {HttpModule} from "@angular/http";
 
 import {LoginComponent} from "./login/login.component";
 import {AuthService} from "./service/auth.service";
+import {HomeModule} from "../home/home.module";
 
 @NgModule({
     imports: [
@@ -21,7 +22,9 @@ import {AuthService} from "./service/auth.service";
         HttpModule,
         TabViewModule,
         ButtonModule,
-        GrowlModule
+        InputTextModule,
+        GrowlModule,
+        HomeModule
     ],
     providers: [AuthService],
     declarations: [AuthComponent, LoginComponent],

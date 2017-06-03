@@ -1,12 +1,12 @@
 package com.thesquare.app.config;
 
 import com.thesquare.app.component.AuthenticationEntryPointImpl;
+import com.thesquare.app.component.CustomAuthenticationProvider;
 import com.thesquare.app.filter.AuthenticationFilter;
-import com.thesquare.app.filter.LoginFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,12 +14,16 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
+@SuppressWarnings("SpringJavaAutowiringInspection")
+@ComponentScan("com.thesquare.app.service")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private CustomAuthenticationProvider authProvider;
 
     @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
     @Override
@@ -27,10 +31,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    @Bean
-    public LoginFilter loginFilterBean() throws Exception {
-        return new LoginFilter();
-    }
+//    @Bean
+//    public LoginFilter loginFilterBean() throws Exception {
+//        return new LoginFilter();
+//    }
 
     @Bean
     public AuthenticationFilter authenticationFilterBean() throws Exception {
@@ -53,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .anyRequest().authenticated()
                 .and()
                 // api/login requests
-                .addFilterBefore(loginFilterBean(), UsernamePasswordAuthenticationFilter.class)
+//                .addFilterBefore(loginFilterBean(), UsernamePasswordAuthenticationFilter.class)
                 // other requests to check the presence of JWT in header
                 .addFilterBefore(authenticationFilterBean(), UsernamePasswordAuthenticationFilter.class);
 
@@ -66,16 +70,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authProvider);
         // Create a default account
-        auth.inMemoryAuthentication()
-                .withUser("admin")
-                .password("a")
-                .roles("ADMIN");
-
-        auth.inMemoryAuthentication()
-                .withUser("user")
-                .password("u")
-                .roles("USER");
+//        auth.inMemoryAuthentication()
+//                .withUser("admin")
+//                .password("a")
+//                .roles("ADMIN");
+//
+//        auth.inMemoryAuthentication()
+//                .withUser("user")
+//                .password("u")
+//                .roles("USER");
     }
 
 }

@@ -4,9 +4,9 @@ import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 
 import {TabViewModule} from "primeng/components/tabview/tabview";
-import {ButtonModule} from "primeng/components/button/button";
-
 import {GrowlModule} from "primeng/components/growl/growl";
+import {InputTextModule, ButtonModule} from "primeng/primeng";
+
 import {HttpModule} from "@angular/http";
 import {HomeComponent} from "./home.component";
 
@@ -16,6 +16,7 @@ import {HomeComponent} from "./home.component";
     FormsModule,
     HttpModule,
     TabViewModule,
+    InputTextModule,
     ButtonModule,
     GrowlModule
   ],
