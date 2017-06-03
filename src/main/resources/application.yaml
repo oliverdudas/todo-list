@@ -1,0 +1,5 @@
+jwt:
+  header: Authorization
+  prefix: Bearer
+  secret: TodoListSecret
+  expiration: 864_000_000
