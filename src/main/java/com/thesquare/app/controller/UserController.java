@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @RequestMapping(
-            value = "/users",
+            value = "/api/users",
             method = RequestMethod.GET
     )
     public @ResponseBody String getUsers() {

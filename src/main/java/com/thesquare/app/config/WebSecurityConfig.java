@@ -1,7 +1,9 @@
 package com.thesquare.app.config;
 
-import com.thesquare.app.filter.JWTAuthenticationFilter;
-import com.thesquare.app.filter.JWTLoginFilter;
+import com.thesquare.app.component.AuthenticationEntryPointImpl;
+import com.thesquare.app.filter.AuthenticationFilter;
+import com.thesquare.app.filter.LoginFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -12,12 +14,17 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+//@SuppressWarnings("SpringJavaAutowiringInspection")
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+//    @Autowired
+//    private AuthenticationEntryPoint authenticationEntryPoint;
+//
     @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -25,24 +32,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public JWTLoginFilter loginFilterBean() throws Exception {
-        return new JWTLoginFilter();
+    public LoginFilter loginFilterBean() throws Exception {
+        return new LoginFilter();
     }
 
     @Bean
-    public JWTAuthenticationFilter authenticationFilterBean() throws Exception {
-        return new JWTAuthenticationFilter();
+    public AuthenticationFilter authenticationFilterBean() throws Exception {
+        return new AuthenticationFilter();
     }
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
+
         httpSecurity
                 .csrf().disable()
+                .exceptionHandling().authenticationEntryPoint(new AuthenticationEntryPointImpl()).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers(HttpMethod.POST, "/login").permitAll()
+                .antMatchers("/", "/*.js", "/.css").permitAll()
+                .antMatchers(HttpMethod.POST, "/user/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 // api/login requests
@@ -55,7 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * TODO: Remove after security setup
+     * InMemoryAuthentication for demonstration purposes only
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -64,6 +73,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("admin")
                 .password("password")
                 .roles("ADMIN");
+
+        auth.inMemoryAuthentication()
+                .withUser("user")
+                .password("password2")
+                .roles("USER");
     }
 
 }

@@ -17,7 +17,7 @@ import java.io.IOException;
 
 import static java.util.Collections.emptyList;
 
-public class JWTAuthenticationFilter extends GenericFilterBean {
+public class AuthenticationFilter extends GenericFilterBean {
 
     @Autowired
     private TokenService tokenService;

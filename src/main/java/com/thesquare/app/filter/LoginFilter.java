@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
 
-public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
+public class LoginFilter extends AbstractAuthenticationProcessingFilter {
 
     @Autowired
     private AuthenticationManager authManager;
@@ -31,8 +31,8 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     @Autowired
     private Environment env;
 
-    public JWTLoginFilter() {
-        super(new AntPathRequestMatcher("/login"));
+    public LoginFilter() {
+        super(new AntPathRequestMatcher("/user/login"));
     }
 
     @PostConstruct
