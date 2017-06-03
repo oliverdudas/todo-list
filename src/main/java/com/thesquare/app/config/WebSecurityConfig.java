@@ -17,14 +17,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-//@SuppressWarnings("SpringJavaAutowiringInspection")
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Autowired
-//    private AuthenticationEntryPoint authenticationEntryPoint;
-//
     @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -50,9 +46,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/*.js", "/.css").permitAll()
-                .antMatchers(HttpMethod.POST, "/user/login").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/api/**").authenticated()
+//                .authorizeRequests()
+//                .antMatchers("/", "/*.js", "/.css").permitAll()
+//                .antMatchers(HttpMethod.POST, "/user/login").permitAll()
+//                .anyRequest().authenticated()
                 .and()
                 // api/login requests
                 .addFilterBefore(loginFilterBean(), UsernamePasswordAuthenticationFilter.class)
@@ -71,12 +69,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // Create a default account
         auth.inMemoryAuthentication()
                 .withUser("admin")
-                .password("password")
+                .password("a")
                 .roles("ADMIN");
 
         auth.inMemoryAuthentication()
                 .withUser("user")
-                .password("password2")
+                .password("u")
                 .roles("USER");
     }
 
