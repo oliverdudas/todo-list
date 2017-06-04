@@ -1,5 +1,6 @@
 <p-growl [value]="messages" sticky="sticky"></p-growl>
 
+<div class="center">(Try admin/a, or user/u)</div>
 <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
     <div>
         <label for="username">Username: </label>
@@ -13,7 +14,7 @@
                [(ngModel)]="model.password" #password="ngModel" name="password"
                pInputText>
     </div>
-    <div style="text-align: center">
+    <div class="center">
       <button pButton type="submit" label="Log In"></button>
     </div>
 </form>

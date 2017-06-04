@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -69,6 +70,13 @@ public class User implements UserDetails {
 
     public void setItems(List<Item> items) {
         this.items = items;
+    }
+
+    public void addItem(Item item) {
+        if (items == null) {
+            setItems(new ArrayList<>());
+        }
+        items.add(item);
     }
 
     @Override

@@ -16,5 +16,5 @@
 
 <br/>
 
-<input type="text" pInputText>
-<button pButton type="button" label="Add item"></button>
+<input type="text" [(ngModel)]="newItem.name" pInputText>
+<button pButton (click)="saveItem()" type="button" label="Add item"></button>

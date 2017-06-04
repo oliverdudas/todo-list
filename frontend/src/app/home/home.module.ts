@@ -10,6 +10,7 @@ import {InputTextModule, ButtonModule, DataListModule} from "primeng/primeng";
 import {HttpModule} from "@angular/http";
 import {HomeComponent} from "./home.component";
 import {UserService} from "./service/user.service";
+import {ItemService} from "./service/item.service";
 
 @NgModule({
   imports: [
@@ -22,7 +23,7 @@ import {UserService} from "./service/user.service";
     ButtonModule,
     GrowlModule
   ],
-  providers: [UserService],
+  providers: [UserService, ItemService],
   declarations: [HomeComponent],
   exports: [HomeComponent]
 })

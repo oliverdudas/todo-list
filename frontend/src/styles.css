@@ -13,3 +13,7 @@
   border-radius: 10px; /* future proofing */
   -khtml-border-radius: 10px; /* for old Konqueror browsers */
 }
+
+h1, .center {
+  text-align: center;
+}
