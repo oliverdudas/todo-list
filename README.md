@@ -1,6 +1,6 @@
 # ToDo List simple app #
 
-A simple todo list application using Spring Boot and Angular 2.
+A simple todo list application using Spring Boot and Angular.
 
 ## Technologies ##
 * [Spring Boot](https://spring.io/)
@@ -35,6 +35,8 @@ git clone https://github.com/oliverdudas/todo-list.git
 ```
 gradlew bootRun
 ```
-2 . Open app
+3 . Open app
 ```
 http://localhost:8080
+```
+4 . Have fun ;)
