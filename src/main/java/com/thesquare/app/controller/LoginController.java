@@ -39,7 +39,6 @@ public class LoginController {
     public ResponseEntity<?> createAuthenticationToken(
             @RequestBody AccountCredentials authenticationRequest, HttpServletResponse response) throws AuthenticationException {
 
-        // Perform the security
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         authenticationRequest.getUsername(),
@@ -49,10 +48,7 @@ public class LoginController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         final String token = tokenService.generateToken(
-                authentication.getName(),
-                env.getProperty("jwt.secret"),
-                env.getProperty("jwt.prefix"),
-                env.getProperty("jwt.expiration", Long.class)
+                authentication.getName()
         );
         response.addHeader(env.getProperty("jwt.header"), token);
 

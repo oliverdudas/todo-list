@@ -1,8 +1,13 @@
 package com.thesquare.app.service;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 public interface TokenService {
 
-    String getTokenSubject(String token, String secret, String prefix);
+    String getUsername(String token);
 
-    String generateToken(String subject, String secret, String prefix, long expiration);
+    String generateToken(String subject);
+
+    Boolean validateToken(String token, UserDetails userDetails);
+
 }
