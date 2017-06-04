@@ -1,6 +1,6 @@
 export class Item {
 
-  id: string;
+  id: number;
   name: string;
 
   constructor() {

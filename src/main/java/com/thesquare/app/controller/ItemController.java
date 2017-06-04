@@ -25,8 +25,19 @@ public class ItemController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<?> getUser(@RequestBody ItemRequest itemRequest) throws AuthenticationException {
+    public ResponseEntity<?> save(@RequestBody ItemRequest itemRequest) throws AuthenticationException {
         itemService.save(itemRequest.getItem(), itemRequest.getUsername());
+        return ResponseEntity.ok(new StatusResponse("OK"));
+    }
+
+    @RequestMapping(
+            value = "/removeitem",
+            method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<?> remove(@RequestBody ItemRequest itemRequest) throws AuthenticationException {
+        itemService.remove(itemRequest.getItem(), itemRequest.getUsername());
         return ResponseEntity.ok(new StatusResponse("OK"));
     }
 

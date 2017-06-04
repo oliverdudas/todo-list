@@ -23,6 +23,19 @@ export class ItemService {
       }).catch((error:any) => Observable.throw(error.json().message || 'Server error'));
   }
 
+  remove(item: Item): Observable<boolean> {
+    let loginInfo = this.authService.getLoginInfo();
+    return this.http.post('http://localhost:8080/api/removeitem', {
+      item: item,
+      username: loginInfo.username
+    }, {
+      headers: this.createAuthorizationHeader(loginInfo)
+    }).map((response: Response) => {
+        console.log('Response: ' + response);
+        return true;
+      }).catch((error:any) => Observable.throw(error.json().message || 'Server error'));
+  }
+
   private createAuthorizationHeader(loginInfo: LoginInfo) {
     let headers = new Headers();
     headers.append('Authorization', loginInfo.token);

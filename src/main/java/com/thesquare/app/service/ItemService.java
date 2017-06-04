@@ -6,4 +6,5 @@ public interface ItemService {
 
     void save(Item item, String username);
 
+    void remove(Item item, String username);
 }

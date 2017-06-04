@@ -42,6 +42,23 @@ export class HomeComponent implements OnInit {
       });
   }
 
+  removeItem(id: number) {
+    let item = new Item();
+    item.id = id;
+    this.itemService.remove(item)
+      .subscribe(result => {
+        if (result === true) {
+          console.log('Item removed!');
+          console.log('Loading user items.');
+          this.callUser();
+        } else {
+          console.log('Item removal failed!');
+        }
+      }, error => {
+        this.messages.push({severity: 'error', summary: error});
+      });
+  }
+
   private callUser() {
     this.userService.getUser()
       .subscribe(user => {
