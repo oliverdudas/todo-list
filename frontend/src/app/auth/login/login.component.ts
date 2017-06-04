@@ -28,10 +28,10 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['home']);
           } else {
             console.log('Login failed!');
-            // login failed
             this.messages.push({severity: 'error', summary: 'Username or password is incorrect!'});
           }
         }, error => {
+          this.messages = [];
           this.messages.push({severity: 'error', summary: error});
         });
     }

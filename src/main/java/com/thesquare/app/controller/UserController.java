@@ -18,7 +18,7 @@ public class UserController {
     private UserDetailsService userDetailsService;
 
     @RequestMapping(
-            value = "/user/{username}",
+            value = "/users/{username}",
             method = RequestMethod.GET
     )
     public ResponseEntity<?> getUser(@PathVariable String username) throws AuthenticationException {

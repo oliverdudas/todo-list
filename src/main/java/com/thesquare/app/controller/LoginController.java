@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @RestController
 public class LoginController {
@@ -53,6 +54,14 @@ public class LoginController {
         response.addHeader(env.getProperty("jwt.header"), token);
 
         return ResponseEntity.ok(new AccountCredentials(authentication.getName()));
+    }
+
+    @RequestMapping(
+            value = {"/home", "/login"},
+            method = RequestMethod.GET
+    )
+    public void rootRedirect(HttpServletResponse response) throws AuthenticationException, IOException {
+        response.sendRedirect("/");
     }
 
 }

@@ -2,7 +2,6 @@ package com.thesquare.app.service;
 
 import com.thesquare.app.model.Item;
 import com.thesquare.app.model.User;
-import com.thesquare.app.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
@@ -14,9 +13,6 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @Autowired
-    private ItemRepository itemRepository;
-
     @Override
     @Transactional
     public void save(Item item, String username) {
@@ -26,12 +22,11 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     @Transactional
-    public void remove(Item item, String username) {
-//        itemRepository.delete(item.getId());
+    public void remove(Long id, String username) {
         User user = (User) userDetailsService.loadUserByUsername(username);
         user.getItems()
                 .removeIf(itemToRemove ->
-                        itemToRemove.getId().equals(item.getId())
+                        itemToRemove.getId().equals(id)
                 );
     }
 }

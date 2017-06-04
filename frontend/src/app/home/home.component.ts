@@ -4,6 +4,8 @@ import {UserService} from "./service/user.service";
 import {Item} from "../model/item";
 import {ItemService} from "./service/item.service";
 import {Message} from "primeng/primeng";
+import {AuthService} from "../auth/service/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   moduleId: module.id,
@@ -17,7 +19,10 @@ export class HomeComponent implements OnInit {
   newItem: Item;
   messages: Message[] = [];
 
-  constructor(private userService: UserService, private itemService: ItemService) {
+  constructor(private router: Router,
+              private userService: UserService,
+              private itemService: ItemService,
+              private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -64,6 +69,14 @@ export class HomeComponent implements OnInit {
       .subscribe(user => {
         this.model = user;
       });
+  }
+
+  logOut(): void {
+    this.authService.logOut().subscribe(isLoggedIn => {
+      if( isLoggedIn === false) {
+        this.router.navigate(['/login']);
+      }
+    })
   }
 
 }

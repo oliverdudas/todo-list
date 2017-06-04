@@ -14,7 +14,7 @@ export class UserService {
 
   getUser(): Observable<User> {
     let loginInfo = this.authService.getLoginInfo();
-    return this.http.get('http://localhost:8080/api/user/' + loginInfo.username, {
+    return this.http.get('http://localhost:8080/api/users/' + loginInfo.username, {
       headers: this.createAuthorizationHeader(loginInfo)
     }).map(response => response.json())
   }

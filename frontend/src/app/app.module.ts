@@ -6,6 +6,7 @@ import { routing } from "./app.routing";
 import { AppComponent } from './app.component';
 import {HomeModule} from "./home/home.module";
 import {ItemService} from "./home/service/item.service";
+import {ButtonModule} from "primeng/primeng";
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import {ItemService} from "./home/service/item.service";
     BrowserModule,
     AuthModule,
     HomeModule,
+    ButtonModule,
     routing
   ],
   providers: [ItemService],

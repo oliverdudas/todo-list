@@ -1,16 +1,11 @@
 package com.thesquare.app.controller;
 
 import com.thesquare.app.model.ItemRequest;
-import com.thesquare.app.model.StatusResponse;
 import com.thesquare.app.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api")
@@ -20,25 +15,20 @@ public class ItemController {
     private ItemService itemService;
 
     @RequestMapping(
-            value = "/saveitem",
+            value = "/items",
             method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<?> save(@RequestBody ItemRequest itemRequest) throws AuthenticationException {
+    public void save(@RequestBody ItemRequest itemRequest) throws AuthenticationException {
         itemService.save(itemRequest.getItem(), itemRequest.getUsername());
-        return ResponseEntity.ok(new StatusResponse("OK"));
     }
 
     @RequestMapping(
-            value = "/removeitem",
-            method = RequestMethod.DELETE,
-            produces = MediaType.APPLICATION_JSON_VALUE,
-            consumes = MediaType.APPLICATION_JSON_VALUE
+            value = "/items/{id}/{username}",
+            method = RequestMethod.DELETE
     )
-    public ResponseEntity<?> remove(@RequestBody ItemRequest itemRequest) throws AuthenticationException {
-        itemService.remove(itemRequest.getItem(), itemRequest.getUsername());
-        return ResponseEntity.ok(new StatusResponse("OK"));
+    public void remove(@PathVariable Long id, @PathVariable String username) throws AuthenticationException {
+        itemService.remove(id, username);
     }
 
 }

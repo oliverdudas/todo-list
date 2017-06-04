@@ -12,7 +12,7 @@ export class ItemService {
 
   save(item: Item): Observable<boolean> {
     let loginInfo = this.authService.getLoginInfo();
-    return this.http.post('http://localhost:8080/api/saveitem', {
+    return this.http.post('http://localhost:8080/api/items', {
       item: item,
       username: loginInfo.username
     }, {
@@ -25,10 +25,7 @@ export class ItemService {
 
   remove(item: Item): Observable<boolean> {
     let loginInfo = this.authService.getLoginInfo();
-    return this.http.post('http://localhost:8080/api/removeitem', {
-      item: item,
-      username: loginInfo.username
-    }, {
+    return this.http.delete('http://localhost:8080/api/items/' + item.id + '/' + loginInfo.username, {
       headers: this.createAuthorizationHeader(loginInfo)
     }).map((response: Response) => {
         console.log('Response: ' + response);
