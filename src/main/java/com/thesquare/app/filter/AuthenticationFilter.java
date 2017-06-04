@@ -42,11 +42,8 @@ public class AuthenticationFilter extends OncePerRequestFilter {
                 if (tokenService.validateToken(token, userDetails)) {
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                             userDetails.getUsername(),
-                            userDetails.getPassword(),
-                            new ArrayList<>()
+                            userDetails.getPassword()
                     );
-                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    logger.info("authenticated user " + username + ", setting security context");
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             }

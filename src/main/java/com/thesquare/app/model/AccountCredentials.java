@@ -5,6 +5,13 @@ public class AccountCredentials {
     private String username;
     private String password;
 
+    public AccountCredentials() {
+    }
+
+    public AccountCredentials(String username) {
+        this.username = username;
+    }
+
     public String getUsername() {
         return username;
     }

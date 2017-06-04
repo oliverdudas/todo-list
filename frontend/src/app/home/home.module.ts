@@ -5,10 +5,11 @@ import {FormsModule} from "@angular/forms";
 
 import {TabViewModule} from "primeng/components/tabview/tabview";
 import {GrowlModule} from "primeng/components/growl/growl";
-import {InputTextModule, ButtonModule} from "primeng/primeng";
+import {InputTextModule, ButtonModule, DataListModule} from "primeng/primeng";
 
 import {HttpModule} from "@angular/http";
 import {HomeComponent} from "./home.component";
+import {UserService} from "./service/user.service";
 
 @NgModule({
   imports: [
@@ -17,9 +18,11 @@ import {HomeComponent} from "./home.component";
     HttpModule,
     TabViewModule,
     InputTextModule,
+    DataListModule,
     ButtonModule,
     GrowlModule
   ],
+  providers: [UserService],
   declarations: [HomeComponent],
   exports: [HomeComponent]
 })

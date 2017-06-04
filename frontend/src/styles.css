@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+.app-container {
+  margin: 20px auto;
+  width: 330px;
+  padding: 10px;
+
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+  -moz-box-shadow: 3px 3px 5px 6px #ccc;
+  box-shadow: 3px 3px 5px 6px #ccc;
+
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px; /* future proofing */
+  -khtml-border-radius: 10px; /* for old Konqueror browsers */
+}

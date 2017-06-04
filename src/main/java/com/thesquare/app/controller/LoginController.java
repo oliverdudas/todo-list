@@ -52,7 +52,7 @@ public class LoginController {
         );
         response.addHeader(env.getProperty("jwt.header"), token);
 
-        return ResponseEntity.ok(authentication);
+        return ResponseEntity.ok(new AccountCredentials(authentication.getName()));
     }
 
 }

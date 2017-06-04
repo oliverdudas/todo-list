@@ -13,7 +13,7 @@ import {User} from "../../model/user";
 })
 export class LoginComponent implements OnInit {
 
-    model: any;
+    model: User;
     messages: Message[] = [];
 
     constructor(private router: Router,

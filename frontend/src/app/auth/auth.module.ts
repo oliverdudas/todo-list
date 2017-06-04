@@ -14,6 +14,7 @@ import {HttpModule} from "@angular/http";
 import {LoginComponent} from "./login/login.component";
 import {AuthService} from "./service/auth.service";
 import {HomeModule} from "../home/home.module";
+import {AuthGuard} from "./service/auth.guard.service";
 
 @NgModule({
     imports: [
@@ -26,7 +27,7 @@ import {HomeModule} from "../home/home.module";
         GrowlModule,
         HomeModule
     ],
-    providers: [AuthService],
+    providers: [AuthService, AuthGuard],
     declarations: [AuthComponent, LoginComponent],
     exports: [AuthComponent]
 })
