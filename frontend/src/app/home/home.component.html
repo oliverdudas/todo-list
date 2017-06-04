@@ -1,5 +1,30 @@
+<p-growl [value]="messages" sticky="sticky"></p-growl>
+<p-dialog header="Update item" [(visible)]="displayUpdateDialog" modal="modal" width="300" [responsive]="true">
+
+  <div class="editItemWrapper">
+    <input type="text" [(ngModel)]="editItem.name" pInputText>
+  </div>
+
+  <div>
+    <button type="button" pButton icon="fa-check" (click)="updateItem()" label="Update"></button>
+    <button type="button" pButton icon="fa-close" (click)="displayUpdateDialog=false" label="Close"></button>
+  </div>
+</p-dialog>
+<p-dialog header="Remove item" [(visible)]="displayRemoveDialog" modal="modal" width="300" [responsive]="true">
+
+  <div class="editItemWrapper">
+    {{deleteItem.name}}
+  </div>
+
+  <div>
+    <button type="button" pButton icon="fa-check" (click)="removeItem()" label="Remove" class="ui-button-danger"></button>
+    <button type="button" pButton icon="fa-close" (click)="displayRemoveDialog=false" label="Close"></button>
+  </div>
+</p-dialog>
+
 <button class="logout" (click)="logOut()" pButton type="button" label="Log out"></button>
 <div style="clear: both;"></div>
+
 <p-dataList [value]="model.items">
   <p-header>
     List
@@ -7,9 +32,9 @@
   <ng-template let-tditem pTemplate="item">
     <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;">
       <div class="ui-grid-row">
-        <div class="ui-grid-col-10">{{tditem.name}}</div>
+        <div class="ui-grid-col-10" ngClass="list-item" (click)="showUpdateDialog(tditem)">{{tditem.name}}</div>
         <div class="ui-grid-col-3">
-          <button pButton class="ui-button-danger" (click)="removeItem(tditem.id)" type="button" label="X"></button>
+          <button pButton class="ui-button-danger" (click)="showRemoveDialog(tditem)" type="button" label="X"></button>
         </div>
       </div>
     </div>

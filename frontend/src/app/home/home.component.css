@@ -2,3 +2,12 @@
   float: right;
   bottom: 12px
 }
+
+.editItemWrapper {
+  margin-bottom: 20px;
+}
+
+.list-item {
+  cursor: pointer;
+  line-height: 1.8em;
+}

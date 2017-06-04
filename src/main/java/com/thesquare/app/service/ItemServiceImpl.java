@@ -7,6 +7,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class ItemServiceImpl implements ItemService {
 
@@ -18,6 +20,18 @@ public class ItemServiceImpl implements ItemService {
     public void save(Item item, String username) {
         User user = (User) userDetailsService.loadUserByUsername(username);
         user.addItem(item);
+    }
+
+    @Override
+    @Transactional
+    public void update(Item item, String username) {
+        User user = (User) userDetailsService.loadUserByUsername(username);
+        List<Item> items = user.getItems();
+        if (items != null) {
+            items.stream()
+                .filter(thisItem -> thisItem.getId().equals(item.getId()))
+                .forEach(thisItem -> thisItem.setName(item.getName()));
+        }
     }
 
     @Override

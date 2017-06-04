@@ -17,7 +17,11 @@ export class HomeComponent implements OnInit {
 
   model: User;
   newItem: Item;
+  editItem: Item;
+  deleteItem: Item;
   messages: Message[] = [];
+  displayUpdateDialog: boolean = false;
+  displayRemoveDialog: boolean = false;
 
   constructor(private router: Router,
               private userService: UserService,
@@ -28,6 +32,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.model = new User();
     this.newItem = new Item();
+    this.editItem = new Item();
+    this.deleteItem = new Item();
     this.callUser();
   }
 
@@ -38,30 +44,60 @@ export class HomeComponent implements OnInit {
           console.log('Item saved!');
           console.log('Loading user items.');
           this.callUser();
+          this.createMessage('success', 'Item added.', this.newItem.name);
           this.newItem.name = '';
         } else {
-          console.log('Saving item failed!');
+          this.createMessage('error', 'Saving item failed!', '');
         }
       }, error => {
-        this.messages.push({severity: 'error', summary: error});
+        this.createMessage('error', error, '');
       });
   }
 
-  removeItem(id: number) {
-    let item = new Item();
-    item.id = id;
-    this.itemService.remove(item)
+  removeItem() {
+    this.itemService.remove(this.deleteItem)
       .subscribe(result => {
         if (result === true) {
           console.log('Item removed!');
           console.log('Loading user items.');
           this.callUser();
+          this.createMessage('success', 'Item removed.', this.deleteItem.name);
         } else {
-          console.log('Item removal failed!');
+          this.createMessage('error', 'Item removal failed!', '');
         }
+        this.displayRemoveDialog = false;
       }, error => {
-        this.messages.push({severity: 'error', summary: error});
+        this.createMessage('error', error, '');
       });
+  }
+
+  updateItem() {
+    this.itemService.update(this.editItem)
+      .subscribe(result => {
+        if (result === true) {
+          console.log('Item updated!');
+          console.log('Loading user items.');
+          this.callUser();
+          this.createMessage('success', 'Item updated.', this.editItem.name);
+        } else {
+          this.createMessage('error', 'Item update failed!', '');
+        }
+        this.displayUpdateDialog = false;
+      }, error => {
+        this.createMessage('error', error, '');
+      });
+  }
+
+  showUpdateDialog(item: Item) {
+    this.editItem = new Item();
+    this.editItem.id = item.id;
+    this.editItem.name = item.name;
+    this.displayUpdateDialog = true;
+  }
+
+  showRemoveDialog(item: Item) {
+    this.deleteItem = item;
+    this.displayRemoveDialog = true;
   }
 
   private callUser() {
@@ -77,6 +113,11 @@ export class HomeComponent implements OnInit {
         this.router.navigate(['/login']);
       }
     })
+  }
+
+  private createMessage(type: string, summary: string, detail: string) {
+    this.messages = [];
+    this.messages.push({severity: type, summary: summary, detail: detail});
   }
 
 }

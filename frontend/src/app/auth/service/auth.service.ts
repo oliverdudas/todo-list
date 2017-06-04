@@ -14,7 +14,7 @@ export class AuthService {
   }
 
   login(username: string, password: string): Observable<boolean> {
-    return this.http.post('http://localhost:8080/user/login', JSON.stringify({username: username, password: password}), {headers: this.headers})
+    return this.http.post('user/login', JSON.stringify({username: username, password: password}), {headers: this.headers})
       .map((response: Response) => {
         console.log('Response: ' + response);
         let token = response.headers && response.headers.get('authorization');
@@ -43,6 +43,13 @@ export class AuthService {
     console.log('LoginInfo requested: ' + localStorage.getItem('currentUser'));
     let loginInfo = JSON.parse(localStorage.getItem('currentUser'));
     return new LoginInfo(loginInfo.username, loginInfo.token);
+  }
+
+  createAuthorizationHeader() {
+    let headers = new Headers();
+    headers.append('Authorization', this.getLoginInfo().token);
+    headers.append('Content-Type', 'application/json');
+    return headers;
   }
 
 }
