@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Http, Headers, Response } from "@angular/http";
 import {Observable} from "rxjs/Rx";
 import {LoginInfo} from "../../model/login.info";
-import {debuglog} from "util";
+import {environment} from "environments/environment"
 
 @Injectable()
 export class AuthService {
@@ -14,10 +14,11 @@ export class AuthService {
   }
 
   login(username: string, password: string): Observable<boolean> {
-    return this.http.post('user/login', JSON.stringify({username: username, password: password}), {headers: this.headers})
+    return this.http.post(environment.authLoginUrl, JSON.stringify({username: username, password: password}), {headers: this.headers})
       .map((response: Response) => {
         console.log('Response: ' + response);
         let token = response.headers && response.headers.get('authorization');
+        console.log('headers: ' + response.headers);
         if (token) {
           console.log('Token successfully retrieved: ' + token);
 

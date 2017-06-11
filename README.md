@@ -40,3 +40,23 @@ gradlew bootRun
 http://localhost:8080
 ```
 4 . Have fun ;)
+
+## Run this project with CORS ##
+1 . Clone project on your machine
+```
+git clone https://github.com/oliverdudas/todo-list.git
+```
+2 . Run backend server on http://localhost:8080  
+```
+Execute SpringBoot's TodoListApplication Main
+```
+3 . Run frontend live server on http://localhost:4200
+```
+cd frontend
+npm start
+```
+4 . Open app
+```
+http://localhost:4200
+```
+5 . Have fun ;)

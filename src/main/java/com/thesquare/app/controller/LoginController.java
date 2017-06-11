@@ -2,6 +2,7 @@ package com.thesquare.app.controller;
 
 import com.thesquare.app.model.AccountCredentials;
 import com.thesquare.app.service.TokenService;
+import com.thesquare.app.util.RequestMappings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
@@ -32,7 +33,7 @@ public class LoginController {
     private Environment env;
 
     @RequestMapping(
-            value = "/user/login",
+            value = RequestMappings.AUTH_LOGIN,
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE

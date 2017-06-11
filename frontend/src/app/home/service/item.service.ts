@@ -3,6 +3,7 @@ import {Http, Response} from "@angular/http";
 import {Observable} from "rxjs/Rx";
 import {AuthService} from "../../auth/service/auth.service";
 import {Item} from "../../model/item";
+import {environment} from "environments/environment"
 
 @Injectable()
 export class ItemService {
@@ -11,7 +12,7 @@ export class ItemService {
   }
 
   save(item: Item): Observable<boolean> {
-    return this.http.post('api/items', item, {
+    return this.http.post(environment.apiItemsUrl, item, {
       headers: this.authService.createAuthorizationHeader()
     }).map((response: Response) => {
       console.log('Response: ' + response);
@@ -20,7 +21,7 @@ export class ItemService {
   }
 
   update(item: Item): Observable<boolean> {
-    return this.http.put('api/items', item, {
+    return this.http.put(environment.apiItemsUrl, item, {
       headers: this.authService.createAuthorizationHeader()
     }).map((response: Response) => {
       console.log('Response: ' + response);
@@ -29,7 +30,7 @@ export class ItemService {
   }
 
   remove(item: Item): Observable<boolean> {
-    return this.http.delete('api/items/' + item.id, {
+    return this.http.delete(environment.apiItemsUrl + '/' + item.id, {
       headers: this.authService.createAuthorizationHeader()
     }).map((response: Response) => {
       console.log('Response: ' + response);

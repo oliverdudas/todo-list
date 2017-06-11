@@ -3,6 +3,7 @@ package com.thesquare.app.controller;
 import com.thesquare.app.model.Item;
 import com.thesquare.app.service.ItemService;
 import com.thesquare.app.service.TokenService;
+import com.thesquare.app.util.RequestMappings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("api")
 public class ItemController {
 
     @Autowired
@@ -25,7 +25,7 @@ public class ItemController {
     private String header;
 
     @RequestMapping(
-            value = "/items",
+            value = RequestMappings.API_ITEMS,
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
@@ -35,7 +35,7 @@ public class ItemController {
     }
 
     @RequestMapping(
-            value = "/items",
+            value = RequestMappings.API_ITEMS,
             method = RequestMethod.PUT
     )
     public void update(@RequestBody Item item, HttpServletRequest request) throws AuthenticationException {
@@ -44,7 +44,7 @@ public class ItemController {
     }
 
     @RequestMapping(
-            value = "/items/{id}",
+            value = RequestMappings.API_ITEMS + "/{id}",
             method = RequestMethod.DELETE
     )
     public void remove(@PathVariable Long id, HttpServletRequest request) throws AuthenticationException {
